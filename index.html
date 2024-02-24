@@ -35,6 +35,22 @@
             </div>
         </div>
     </div>
-    
+
+<script>
+
+const apiKey = "9d5b08c0fe2cbe1201fd7cb807b6eafe";
+const apiURL = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=almaty";
+
+async function checkWeather(){
+    const response = await fetch(apiURL + `&appid=${apiKey}`);
+    var data = await response.json();
+
+    console.log(data);
+}
+
+
+checkWeather();
+</script>
+
 </body>
 </html>
