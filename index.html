@@ -9,10 +9,10 @@
 </head>
 <body>
     <div class="card">
-        <div class="search">
-            <input type="text" placeholder="enter city name" spellcheck="false">
-            <button><img src="images/search.png"></button>
-        </div>
+        <form id="search-form" class="search">
+            <input name="search" type="text" placeholder="enter city name" spellcheck="false">
+            <button type="submit"><img src="images/search.png"></button>
+        </form>
         <div class="error">
             <p>Invalid city name</p>
         </div>
@@ -49,7 +49,15 @@ const searchBtn = document.querySelector(".search button");
 const weatherIcon = document.querySelector(".weather-icon");
 
 async function checkWeather(city){
-    const response = await fetch(apiURL + city + `&appid=${apiKey}`);
+
+// https://api.openweathermap.org/data/2.5/weather?units=metric&q=j&appid=9d5b08c0fe2cbe1201fd7cb807b6eafe
+    const response = await fetch(`${apiURL}${city}&appid=${apiKey}`);
+
+    const a= "hey"
+    const b = "john"
+
+    // a + " " + b // => hey john
+        // `${a} ${b}` // => hey john
 
     if(response.status == 404){
         document.querySelector(".error").style.display = "block";
@@ -82,9 +90,17 @@ async function checkWeather(city){
     }
 }
 
-searchBtn.addEventListener("click", ()=>{
-    checkWeather(searchBox.value);
+const form = document.getElementById("search-form");
+
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const value = formData.get("search");
+    checkWeather(value);
 })
+// searchBtn.addEventListener("click", ()=>{
+//     checkWeather(searchBox.value);
+// })
 </script>
 
 </body>
